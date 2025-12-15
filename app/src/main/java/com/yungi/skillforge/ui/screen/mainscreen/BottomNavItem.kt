@@ -1,4 +1,4 @@
-package com.yungi.skillforge.ui.navigation
+package com.yungi.skillforge.ui.screen.mainscreen
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle

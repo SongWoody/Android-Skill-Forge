@@ -11,7 +11,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.yungi.skillforge.ui.navigation.HomeRoute
+import com.yungi.skillforge.ui.screen.mainscreen.HomeRoute
 
 fun NavGraphBuilder.homeScreen() {
     composable<HomeRoute> {

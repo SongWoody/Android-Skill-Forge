@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.yungi.skillforge.ui.navigation.BookmarksRoute
+import com.yungi.skillforge.ui.screen.mainscreen.BookmarksRoute
 
 fun NavGraphBuilder.bookmarksScreen() {
     composable<BookmarksRoute> {
