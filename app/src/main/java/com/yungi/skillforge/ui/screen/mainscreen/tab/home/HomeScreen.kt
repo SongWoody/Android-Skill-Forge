@@ -9,15 +9,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
-import com.yungi.skillforge.ui.screen.mainscreen.HomeRoute
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavKey
+import kotlinx.serialization.Serializable
 
-fun NavGraphBuilder.homeScreen() {
-    composable<HomeRoute> {
+
+@Serializable
+object HomeRoute: NavKey
+
+fun EntryProviderScope<NavKey>.homeScreen() {
+    entry<HomeRoute> {
         HomeScreen()
     }
 }
+
 
 @Composable
 fun HomeScreen(

@@ -6,15 +6,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
-import com.yungi.skillforge.ui.screen.mainscreen.HistoryRoute
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavKey
+import kotlinx.serialization.Serializable
 
-fun NavGraphBuilder.historyScreen() {
-    composable<HistoryRoute> {
+@Serializable
+object HistoryRoute: NavKey
+
+
+fun EntryProviderScope<NavKey>.historyScreen() {
+    entry<HistoryRoute> {
         HistoryScreen()
     }
 }
+
 
 @Composable
 fun HistoryScreen() {

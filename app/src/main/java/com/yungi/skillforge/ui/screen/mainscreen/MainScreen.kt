@@ -14,8 +14,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
 import com.yungi.skillforge.ui.screen.mainscreen.tab.bookmarks.bookmarksScreen
 import com.yungi.skillforge.ui.screen.mainscreen.tab.history.historyScreen
+import com.yungi.skillforge.ui.screen.mainscreen.tab.home.HomeScreen
 import com.yungi.skillforge.ui.screen.mainscreen.tab.home.homeScreen
 import com.yungi.skillforge.ui.screen.mainscreen.tab.profile.profileScreen
 import kotlinx.serialization.Serializable
@@ -25,9 +29,8 @@ object MainRoute
 
 @Composable
 fun MainScreen() {
-    val mainNavController = rememberNavController()
-    val navBackStackEntry by mainNavController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
+    val backStack = rememberNavBackStack(BottomNavItem.Home.route)
+    val currentRoute = backStack.lastOrNull()
 
     Scaffold(
         bottomBar = {
@@ -42,16 +45,8 @@ fun MainScreen() {
                     NavigationBarItem(
                         selected = currentRoute == item.route,
                         onClick = {
-                            mainNavController.navigate(
-                                route = item.route,
-                                navOptions = navOptions {
-                                    popUpTo(mainNavController.graph.findStartDestination().id) {
-                                        saveState = true
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            )
+                            backStack.clear()
+                            backStack.add(item.route)
                         },
                         icon = {
                             Icon(
@@ -65,15 +60,18 @@ fun MainScreen() {
             }
         }
     ) { paddingValues ->
-        NavHost(
+        NavDisplay(
             modifier = Modifier.padding(paddingValues),
-            navController = mainNavController,
-            startDestination = BottomNavItem.Home.route
-        ) {
-            homeScreen()
-            historyScreen()
-            bookmarksScreen()
-            profileScreen()
-        }
+            backStack = backStack,
+            onBack = {
+                backStack.removeLastOrNull()
+            },
+            entryProvider = entryProvider {
+                homeScreen()
+                historyScreen()
+                bookmarksScreen()
+                profileScreen()
+            }
+        )
     }
 }
