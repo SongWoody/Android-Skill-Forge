@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinx.serialization.json)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.apollo)
 }
 
 android {
@@ -47,6 +48,12 @@ android {
     }
 }
 
+apollo {
+    service("service") {
+        packageName.set("com.example.app.graphql") // 생성될 코드가 위치할 패키지명
+    }
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -74,4 +81,6 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.compose)
+
+    implementation(libs.apollo.graphql)
 }

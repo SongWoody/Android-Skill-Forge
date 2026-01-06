@@ -29,7 +29,9 @@ import kotlinx.serialization.Serializable
 object MainRoute
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    navigateToAllBookScreen: ()-> Unit
+) {
     val mainNavController = rememberNavController()
     val navBackStackEntry by mainNavController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -75,7 +77,9 @@ fun MainScreen() {
             navController = mainNavController,
             startDestination = BottomNavItem.Home.route
         ) {
-            homeScreen()
+            homeScreen(
+                navigateToAllBookScreen
+            )
             historyScreen()
             bookmarksScreen()
             profileScreen()
