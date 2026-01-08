@@ -1,7 +1,0 @@
-query GetAllBooks {
-  allBooks {
-    id
-    title
-    author
-  }
-}

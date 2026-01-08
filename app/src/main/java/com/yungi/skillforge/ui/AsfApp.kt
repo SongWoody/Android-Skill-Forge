@@ -9,7 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.yungi.skillforge.ui.graphql.allBookScreen
-import com.yungi.skillforge.ui.graphql.navigateToAllBookScreen
+import com.yungi.skillforge.ui.graphql.navigateToPhotoShareScreen
 import com.yungi.skillforge.ui.screen.mainscreen.MainRoute
 import com.yungi.skillforge.ui.screen.mainscreen.MainScreen
 import com.yungi.skillforge.ui.theme.AndroidSkillForgeTheme
@@ -28,7 +28,7 @@ fun AsfApp() {
                 composable<MainRoute> {
                     MainScreen(
                         navigateToAllBookScreen = {
-                            navController.navigateToAllBookScreen()
+                            navController.navigateToPhotoShareScreen()
                         }
                     )
                 }

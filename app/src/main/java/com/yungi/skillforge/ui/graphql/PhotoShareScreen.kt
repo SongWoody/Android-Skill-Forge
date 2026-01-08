@@ -2,8 +2,6 @@ package com.yungi.skillforge.ui.graphql
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,37 +16,32 @@ import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
 
 @Serializable
-object AllBooksRoute
+object PhotoShareRoute
 
 fun NavGraphBuilder.allBookScreen() {
-    composable<AllBooksRoute> {
-        AllBooksScreen()
+    composable<PhotoShareRoute> {
+        PhotoShareScreen()
     }
 }
 
-fun NavController.navigateToAllBookScreen() {
-    this.navigate(AllBooksRoute)
+fun NavController.navigateToPhotoShareScreen() {
+    this.navigate(PhotoShareRoute)
 }
 
 @Composable
-fun AllBooksScreen(
-    viewModel: BookViewModel = hiltViewModel()
+fun PhotoShareScreen(
+    viewModel: PhotoShareModel = hiltViewModel()
 ) {
     LaunchedEffect(Unit) {
         viewModel.fetchBooks()
     }
 
-    val books by viewModel.books.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (books.isEmpty()) {
-        Box(Modifier.fillMaxSize()) {
-            Text(text = "empty list", modifier = Modifier.align(Alignment.Center))
-        }
-    } else {
-        LazyColumn {
-            items(books) { book ->
-                Text(text = "제목: ${book.title}, 저자: ${book.author}")
-            }
-        }
+    Box(Modifier.fillMaxSize()) {
+        Text(
+            text = "totalPhotos: ${uiState.totalPhotos}, totalUsers: ${uiState.totalUsers}",
+            modifier = Modifier.align(Alignment.Center)
+        )
     }
 }
