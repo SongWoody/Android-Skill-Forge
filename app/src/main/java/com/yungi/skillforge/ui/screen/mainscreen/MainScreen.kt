@@ -7,19 +7,14 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navOptions
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.yungi.skillforge.ui.screen.mainscreen.tab.bookmarks.bookmarksScreen
 import com.yungi.skillforge.ui.screen.mainscreen.tab.history.historyScreen
-import com.yungi.skillforge.ui.screen.mainscreen.tab.home.HomeScreen
 import com.yungi.skillforge.ui.screen.mainscreen.tab.home.homeScreen
 import com.yungi.skillforge.ui.screen.mainscreen.tab.profile.profileScreen
 import kotlinx.serialization.Serializable
@@ -66,6 +61,10 @@ fun MainScreen() {
             onBack = {
                 backStack.removeLastOrNull()
             },
+            entryDecorators = listOf(
+                rememberSaveableStateHolderNavEntryDecorator(),
+                rememberViewModelStoreNavEntryDecorator()
+            ),
             entryProvider = entryProvider {
                 homeScreen()
                 historyScreen()
