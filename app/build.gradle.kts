@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinx.serialization.json)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.apollo)
 }
 
 android {
@@ -47,6 +48,17 @@ android {
     }
 }
 
+apollo {
+    service("service") {
+        packageName.set("com.yungi.skillforge.graphql") // 생성될 코드가 위치할 패키지명
+
+        introspection {
+            endpointUrl.set("http://localhost:8181/graphql")
+            schemaFile.set(file("src/main/graphql/schema.graphqls"))
+        }
+    }
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -78,4 +90,6 @@ dependencies {
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+
+    implementation(libs.apollo.graphql)
 }

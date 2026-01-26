@@ -2,6 +2,7 @@ package com.yungi.skillforge.ui.screen.mainscreen.tab.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,15 +18,18 @@ import kotlinx.serialization.Serializable
 @Serializable
 object HomeRoute: NavKey
 
-fun EntryProviderScope<NavKey>.homeScreen() {
+fun EntryProviderScope<NavKey>.homeScreen(
+    navigateToBookScreen: ()->Unit,
+) {
     entry<HomeRoute> {
-        HomeScreen()
+        HomeScreen(navigateToBookScreen)
     }
 }
 
 
 @Composable
 fun HomeScreen(
+    navigateToBookScreen: ()->Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -37,5 +41,13 @@ fun HomeScreen(
             uiState.text,
             modifier = Modifier.align(Alignment.Center)
         )
+
+        Button(
+            onClick = {
+                navigateToBookScreen()
+            }
+        ) {
+            Text("Move to BookScreen")
+        }
     }
 }
